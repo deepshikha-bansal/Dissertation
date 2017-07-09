@@ -1,0 +1,19 @@
+\begin{table}[h]
+\centering
+\caption{Effect on Accuracy by varying the Fixed Point Fractional Length (Word Length 32).}
+\label{Results Fixed1}
+\begin{tabular}{||m{3cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}||}
+\hline
+\multirow{2}{*}{Metric} & \multirow{2}{*}{\parbox{1.5cm}{Floating Point Datatype}} & \multicolumn{5}{|c||}{ Fixed Point Fractional Length (Word Length 32)} \\[1.5ex]\cline{3-7}
+& & 16bits&12 bits &8bits&4bits&2bits \\[1.5ex]
+\hline
+\hline
+Number of images wrongly classified   & 95 &95 &95 &96 &567 &8865\\
+\hline
+Number of images correctly classified &9905&9905&9905&9904&9433&1135\\
+\hline
+Accuracy (\% of images correctly classified)&99.05\%&99.05\%&99.05\%&99.04\%&94.33\%&11.35\%\\
+\hline
+\end{tabular}
+
+\end{table}

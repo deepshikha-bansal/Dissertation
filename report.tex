@@ -1,0 +1,328 @@
+\documentclass[12pt,twoside]{report}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage[pdftex]{graphicx}
+\usepackage{suthesis-2e}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{gantt}
+\usepackage{listings}
+\usepackage{xcolor}
+%\lstset{language=C,
+%           basicstyle=\ttfamily\tiny,
+%           backgroundcolor=\color{black!5}, % set backgroundcolor
+%           keywordstyle=\color{blue}\ttfamily,
+%           stringstyle=\color{red}\ttfamily,
+%           commentstyle=\color{green}\ttfamily,
+%          breaklines=true
+%          }
+\usepackage{calc}
+\usepackage{array}
+\usepackage{rotating}
+\usepackage{url}
+\usepackage{pgf,tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{adjustbox}
+\usepackage{dot2texi}
+\usepackage[normal]{subfigure}
+\usepackage{multirow}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{pgfplots, pgfplotstable}
+\usepackage{amsmath}
+\usepackage{pgf,tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+
+\usepackage{amsmath}
+\usepackage{mdwlist}
+\usepackage{xcolor}
+\usepackage{adjustbox}
+\usepackage{dot2texi}
+
+
+
+\usepackage{pgfplots, pgfplotstable}
+\usepackage{amsmath}
+\makeatletter
+\newif\if@restonecol
+\makeatother
+\let\algorithm\relax
+\let\endalgorithm\relax
+\usepackage[ruled]{algorithm2e}
+\usepackage{multirow}
+\usepackage[center]{caption}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{calc}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\def\scalecheck{\resizebox{\widthof{\checkmark}*\ratio{\widthof{x}}{\widthof{\normalsize x}}}{!}{\checkmark}}
+\usetikzlibrary{arrows,backgrounds}
+\usetikzlibrary{arrows,automata,calc,shapes,positioning,shadows,trees}
+
+\pgfplotsset{compat=newest}
+
+
+\tikzset{
+  basic/.style  = {draw, text width=2cm, font=\sffamily, rectangle},
+  root/.style   = {basic, rounded corners=2pt, thin, align=center,
+                   fill=white!90},
+  level 2/.style = {basic, rounded corners=6pt, thin,align=center, fill=white!90,
+                   text width=8em},
+  level 3/.style = {basic, thin, align=left, fill=white!90, text width=6.5em}
+}
+
+
+\usepackage{acro}
+
+% class `abbrev': abbreviations:
+\DeclareAcronym{FHE}{
+	short = FHE ,
+	long  = Fully Homomorphic Encryption ,
+	class = abbrev
+}
+\DeclareAcronym{FFT}{
+	short = FFT ,
+	long  = Fast Fourier Transform ,
+	class = abbrev
+}
+\DeclareAcronym{FFTW}{
+	short = FFTW ,
+	long  = Fast Fourier Transform in the West ,
+	class = abbrev
+}
+\DeclareAcronym{FHEW}{
+	short = FHEW ,
+	long  = Fully Homomorphic Encryption Library ,
+	class = abbrev
+}
+\DeclareAcronym{NTT}{
+	short = NTT ,
+	long  = Number Theoretic Transform,
+	class = abbrev
+}
+\DeclareAcronym{FPGA}{
+	short = FPGA ,
+	long  = Field Programmable Gate Array ,
+	class = abbrev
+}
+\DeclareAcronym{GPU}{
+	short = GPU ,
+	long  = Graphics Processing Unit ,
+	class = abbrev
+}
+\DeclareAcronym{CPU}{
+	short = CPU ,
+	long  =  Central Processing Unit ,
+	class = abbrev
+}
+\DeclareAcronym{HLS}{
+	short = HLS ,
+	long  = High Level Synthesis,
+	class = abbrev
+}
+\DeclareAcronym{OpenCV}{
+	short = OpenCV ,
+	long  = Open Source Computer Vision,
+	class = abbrev
+}
+\DeclareAcronym{CNN}{
+	short = CNN ,
+	long  = Convolutional Neural Network,
+	class = abbrev
+}
+\DeclareAcronym{2D}{
+	short = 2D ,
+	long  = Two Dimensional ,
+	class = abbrev
+}
+\DeclareAcronym{MNIST}{
+	short = MNIST ,
+	long  = Modified National Institute of Standards and Technology,
+	class = abbrev
+}
+\DeclareAcronym{LFHE}{
+  short = LFHE ,
+  long  = Levelled Fully Homomorphic Encryption ,
+  class = abbrev
+}
+\DeclareAcronym{LWE}{
+  short = LWE ,
+  long  =Learning With Errors ,
+  class = abbrev
+}
+\DeclareAcronym{RTL}{
+  short = RTL ,
+  long  = Register Transistor Logic,
+  class = abbrev
+}
+
+\DeclareAcronym{IP Core}{
+  short = IP Core ,
+  long  = Intellectual Property Core ,
+  class = abbrev
+}
+
+\usepackage{color}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\definecolor{ocherCode}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{blueCode}{rgb}{0, 0, 0.93} % #0000EE -> rgb(0, 0, 238)
+\definecolor{greenCode}{rgb}{0, 0.6, 0} % #009900 -> rgb(0, 153, 0) 
+\usepackage{upquote}
+\usepackage{listings}
+\makeatletter
+%\lstdefinelanguage{HTML5}{
+%	sensitive=true,
+%	keywords={%
+%		% JavaScript
+%		typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break,
+%		% HTML
+%		html, title, meta, style, head, body, script, canvas,
+%		% CSS
+%		border:, transform:, -moz-transform:, transition-duration:, transition-property:,
+%		transition-timing-function:
+%	},
+%	% http://texblog.org/tag/otherkeywords/
+%	otherkeywords={<, >, \/},   
+%	ndkeywords={class, export, boolean, throw, implements, import, this},   
+%	comment=[l]{//},
+%	% morecomment=[s][keywordstyle]{<}{>},  
+%	morecomment=[s]{/*}{*/},
+%	morecomment=[s]{<!}{>},
+%	morestring=[b]',
+%	morestring=[b]",    
+%	alsoletter={-},
+%	alsodigit={:}
+%}
+
+
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+%\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{url}
+\usepackage{tikz}
+%\usetikzlibrary{dsp,chains}
+\usepackage{pgf,tikz}
+\usetikzlibrary{calc,arrows}
+\usepackage{amsmath}
+%\usepackage{minted}
+%\usepackage{titlesec}
+%\usepackage{ulem}
+%\usepackage{subfigure}
+%\usepackage{subcaption}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+%\setcounter{secnumdepth}{4}
+%\setcounter{tocdepth}{4}
+\renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+%Parameters for TEXT pages (not float pages):
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}     % 2 may work better
+\setcounter{dbltopnumber}{2}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+\renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+%Parameters for FLOAT pages (not text pages):
+\renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+%N.B.: floatpagefraction MUST be less than topfraction !!
+\renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+%remember to use [htp] or [htpb] for placement
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+
+\begin{document}
+
+
+\input{files/title_page}
+%\onehalfspacing
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\renewcommand{\lstlistlistingname}{List of Source Codes}
+\lstlistoflistings
+
+\chapter*{Abbreviations}
+\begin{table}[h]
+\begin{tabular}{m{3cm} m{15cm}}
+\textbf{FHE} & Fully Homomorphic Encryption\\
+\vspace{0.25cm}
+\textbf{FFT} &  Fast Fourier Transform\\
+\vspace{0.25cm}
+\textbf{FFTW} & Fast Fourier Transform in the West\\
+\vspace{0.25cm}
+\textbf{FHEW} & Fully Homomorphic Encryption Library\\
+\vspace{0.25cm}
+\textbf{NTT} & Number Theoretic Transform\\
+\vspace{0.25cm}
+\textbf{FPGA} & Field Programmable Gate Array\\
+\vspace{0.25cm}
+\textbf{GPU} & Graphics Processing Unit\\
+\vspace{0.25cm}
+\textbf{CPU} & Central Processing Unit\\
+\vspace{0.25cm}
+\textbf{HLS} & High Level Synthesis\\
+\vspace{0.25cm}
+\textbf{OpenCV} & Open Source Computer Vision\\
+\vspace{0.25cm}
+\textbf{CNN} & Convolutional Neural Network\\
+\vspace{0.25cm}
+\textbf{2D} & Two Dimensional\\
+\vspace{0.25cm}
+\textbf{MNIST} & Modified National Institute of Standards and Technology\\
+\vspace{0.25cm}
+\textbf{LFHE} & Levelled Fully Homomorphic Encryption\\
+\vspace{0.25cm}
+\textbf{LWE}  & Learning With Errors\\
+\vspace{0.25cm}
+\textbf{RTL}  & Register Transistor Logic\\
+\vspace{0.25cm}
+\textbf{IP Core}  &  Intellectual Property Core\\
+\end{tabular}
+\end{table}
+ 
+\begin{abstract}
+ 
+Developments in high end computing has led to design and simulation of complex systems e.g. weather forecasts,cryptography, machine learning algorithms, etc. which demand a lot of computation effort,and hence processing power is a dominant requirement for such applications.Various heterogeneous computing platforms, with graphics processing units(GPUs),massively parallel processor arrays(MPPAs) and other accelerators acting as co-processors help in parallelising the application and hence improve the efficiency. FPGA's provide a reliable way of prototyping an application and measuring the performance prior to fabrication of ASIC. However mapping an application to any platform is limited by factors such as area required by the application which is defined mainly in terms of number of resources used,speed of performance which is mainly referred to as latency and computation power requirements. e.g. An application cannot be parallelized unless sufficient resources are provided on a given architecture to execute the amount of intended parallelism. The underlying arithmetic used directly affects the number of resources and processing power used by any algorithm on an architecture. However changing the arithmetic of any algorithm may have adverse affects on the performance in terms of reliability because of precision loss by changing the data types. \\
+In this report, two computationally intensive algorithms :Deep Neural network and Fully Homomorphic Encryption Algorithm are explored for the underlying arithmetic. \\
+In the first part,compute intensive modules in an existing open source implementation of FHEW algorithm are identified and the results of modifying the underlying arithmetic from double precision float to single precision float are analyzed.Then a resource optimized 1024-Point double Precision Fast Fourier Transform is analyzed using Vivado HLS,by scaling an implementation of smallest FFT compute unit, for efficient implementation of FHEW on hardware.
+
+In the second part, another compute intensive application Deep Neural Network is analyzed. An important step in design flow of computation intensive embedded system applications is conversion from float to fixed point representation. Although float offers more dynamic range, it is expensive to compute. However some applications can tolerate a certain level of inaccuracy with usage of simple float representation. An existing open source implementation that classifies MNIST Data set is used, and the library is modified to use fixed point representation instead of floating point representation of numbers. The effect on accuracy of the results is compared and analyzed for different fixed point formats. The compute intensive module is implemented in Vivado HLS, and the estimated improvement on latency and resource utilization with the usage of fixed point arithmetic is also studied. 
+
+
+
+ 
+  
+\end{abstract}
+
+
+
+\pagenumbering{arabic}
+\input{files/0_acknowledgement}
+\input{files/1_introduction}
+\input{files/2_background}
+\input{files/chapter3}
+\input{files/chapter4}
+\input{files/chapter5}
+\input{files/chapter6}
+\input{files/bibliography}
+
+
+
+\end{document}

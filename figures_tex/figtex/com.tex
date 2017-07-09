@@ -1,0 +1,31 @@
+\begin{table}[!h]
+\centering
+\caption{FFT Data Comparison For Single Precision and Double Precision for Sample Computation}
+\label{Table 3.2}
+\begin{tabular}{||m{3cm}|m{1.8cm}|m{4.3cm}|m{4.3cm}||}
+\hline
+Metric & Variable & Real Part &Imaginary Part\\[1.5ex]
+\hline
+\hline
+\multirow{5}{*}{\parbox{3cm}{Double Precision Floating Point}} & \multicolumn{3}{|c||}{Before Multiplication}\\[1.5ex]\cline{2-4}
+  & ai[0] & 17330255872.0000000 &  -706887090176.0000000  \\[1.5ex]\cline{2-4}
+&sk\_FFT[0] & 5.646639 &2.667416 \\[1.5ex]\cline{2-4}
+& \multicolumn{3}{|c||}{After Multiplication}\\[1.5ex]\cline{2-4}
+&ai[0] & 1983419383808.000000 &-3945309667328.000000 \\[1.5ex]
+\hline
+\hline
+\multirow{5}{*}{\parbox{3cm}{Single Precision Floating Point}} & \multicolumn{3}{|c||}{Before Multiplication}\\[1.5ex]\cline{2-4}
+&aif[0] & 17330255824.0000000 & -706887090176.0000000   \\[1.5ex]\cline{2-4}
+&sk\_FFTF[0] & 5.646641 &2.667419 \\[1.5ex]\cline{2-4}
+& \multicolumn{3}{|c||}{After Multiplication}\\[1.5ex]\cline{2-4}
+&aif[0] & 1983422005248.000000 &-3945310453760.000000 \\[1.5ex]
+\hline
+\hline
+\multirow{5}{*}{\parbox{3cm}{Difference in Values(double-Single)}} & \multicolumn{3}{|c||}{Before Multiplication}\\[1.5ex]\cline{2-4}
+&diff\_ai[0] & 2048.0000000 & 0.0000000   \\[1.5ex]\cline{2-4}
+&diff\_sk[0] & -0.000002 &-0.000003 \\[1.5ex]\cline{2-4}
+& \multicolumn{3}{|c||}{After Multiplication}\\[1.5ex]\cline{2-4}
+&diff\_ai[0] & -2621440.000000 &786432.000000 \\[1.5ex]
+\hline
+\end{tabular}
+\end{table}

@@ -1,0 +1,32 @@
+
+\lstset { %
+	language=C,
+	backgroundcolor=\color{lightgray}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	basicstyle=\ttfamily\scriptsize,
+	%\basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	breaklines=true	
+}
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+\begin{lstlisting}[caption={Sample Code to Implement Butterfly Structure},label={listing:2}]
+void butterfly(double X_R[2],double X_I[2],double w_re, double w_im)
+{   
+    //declare temporary variables
+    double E1R, E1I, E2R, E2I;
+    
+    E1R = X_R[0], E2R = X_R[1];
+    E1I = X_I[0], E2I = X_I[1];
+    
+    //computes the First index output
+    X_R[0]=E1R + E2R;
+    X_I[0]=E1I + E2I;
+    
+    //computes the second index output
+    X_R[1] = (E1R-E2R)*w_re - (E1I-E2I)*w_im;
+    X_I[1] = (E1R-E2R)*w_im + (E1I-E2I)*w_re;
+}
+\end{lstlisting}
+

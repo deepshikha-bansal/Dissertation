@@ -1,0 +1,35 @@
+\lstset { %
+	language=C,
+	backgroundcolor=\color{lightgray}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	basicstyle=\ttfamily\scriptsize,
+	%\basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	breaklines=true	
+}
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+\begin{lstlisting}[caption={Sample Code for Fixed Multiplication},label={listing:4}]
+float multiply(float num1,float num2)
+{
+     int temp;
+     int n1,n2;
+     float temp_result; 
+     
+     //Convert num1 and num2 to fixed point using the function convert
+     //as given in section 4.2.3
+     n1=convert(num1); 
+     n2=convert(num2);
+    
+     //compute Fixed Point Multiplication
+      temp=n1*n2;
+      
+     //adjust the result of fixed point multiplication
+     //by scaling down with 2^frac_len
+      temp_result=temp/(2^frac_len);
+      
+      return temp_result;
+}
+\end{lstlisting}
+

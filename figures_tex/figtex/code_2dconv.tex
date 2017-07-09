@@ -1,0 +1,40 @@
+
+\lstset { %
+	language=C,
+	backgroundcolor=\color{lightgray}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	basicstyle=\ttfamily\scriptsize,
+	%\basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	breaklines=true	
+}
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+\begin{lstlisting}[caption={Two Dimensional Convolution Operation Code Snippet},label={fig:Custom Filter 2d}]
+\label{listing:6}
+
+out.at<float>(r,c) = 0;
+
+for(int i = 0; i < ker.rows; i++) {
+
+  for(int j = 0; j < ker.cols; j++) {   
+    
+    //Define a fixed point variable "a"
+    //to store the fixed point value of kernel
+    Fi::Fixed<word_length, frac_length, Fi::SIGNED> a(ker.at<float>(i, j));
+    
+    //Define a fixed point variable "b" 
+    //to store the fixed point value of Input
+    Fi::Fixed<word_length, frac_length, Fi::SIGNED> b(input.at<float>(r+i, c+j));
+    
+    //Define a fixed point variable "temp1" 
+    //to store the result of fixed point multiplication
+    Fi::Fixed<word_length, frac_length, Fi::SIGNED> temp1(a*b);
+    
+    //the result is converted back to float and added to the output.
+	out.at<float>(r,c) += temp1.toFloat();
+	
+	}
+}
+\end{lstlisting}

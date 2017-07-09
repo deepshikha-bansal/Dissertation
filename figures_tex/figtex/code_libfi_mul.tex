@@ -1,0 +1,36 @@
+\lstset { %
+	language=C,
+	backgroundcolor=\color{lightgray}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	basicstyle=\ttfamily\scriptsize,
+	%\basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	breaklines=true	
+}
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+\begin{lstlisting}[caption={Libfi:Fixed Point Multiplication Example Code Snippet},label={listing:5}]
+//include Fixed Point Library files.
+#include "fi/Fixed.hpp"
+#include "fi/overflow/Wrap.hpp"
+#include <iostream>
+
+#define WL 8
+#define FL 4
+
+int main(int argc, char* argv[]) 
+{
+     //Define two fixed point variables a and b
+     Fi::Fixed<WL, FL, Fi::SIGNED> a("3.14");
+     Fi::Fixed<WL, FL, Fi::SIGNED> b("1.14");
+  
+     //Display the result of Fixed Point multiplication.
+     std::cout << a*b << std::endl;
+  
+     return 0;
+}
+\end{lstlisting}
+
+
+

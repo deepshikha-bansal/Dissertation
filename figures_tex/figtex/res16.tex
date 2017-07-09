@@ -1,0 +1,21 @@
+\begin{table}[!h]
+\centering
+\caption{Effect on Accuracy by varying the Fixed Point Fractional Length (Word Length 16).}
+\label{Results Fixed2}
+\begin{tabular}{||m{4cm}|m{2cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}||}
+\hline
+\multirow{2}{*}{Metric} &  \multicolumn{5}{|c||}{ Fixed Point Fractional Length (Word Length 16)} \\\cline{2-6}
+& 16bits&12 bits &8bits&4bits&2bits \\
+\hline
+\hline
+Exception& Positive Overflow &\multicolumn{4}{|c||}{-}\\
+\hline
+Number of images wrongly classified    &- &95 &96 &567 &8865\\
+\hline
+Number of images correctly classified  &- &9905&9904&9433&1135\\
+\hline
+Accuracy (\% of images correctly classified)&- &99.05\%&99.04\%&94.33\%&11.35\%\\
+\hline
+\end{tabular}
+
+\end{table}

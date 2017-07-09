@@ -1,0 +1,29 @@
+\begin{table}[!h]
+\centering
+\caption{Synthesis Results Comparison for Resource Optimized 1024 Point FFT for Performance Optimization for Zedboard ZC702}
+\label{Table 4.2}
+\begin{tabular}{||m{4cm}|m{2.5cm}|m{2.5cm}|m{2.5cm}|m{2.5cm}||}
+\hline
+Metric & Area Optimized & INLINE & Pipeline & Unroll (Factor 8)\\
+\hline
+\multicolumn{5}{||c||}{Timing Estimates}\\
+\hline
+Clock (ns)&8.23 &8.23&8.23& 9.57\\
+\hline
+Latency(Cycles) &118805 & 118805 &119828 &126754\\
+\hline
+\multicolumn{5}{||c||}{Area Estimates}\\
+\hline
+DSP48E & 15& 15 &15 & 30 \\
+\hline
+LUT's & 3035 & 3035 &2909 &51644\\
+\hline
+Flip Flops & 1923 & 1923 & 2052 &16973\\
+\hline	
+\multicolumn{5}{||c||}{Profiling}\\
+\hline
+Time To compute FFT &1.19ms&1.19ms&1.2ms&1.27ms\\
+\hline
+\end{tabular}
+
+\end{table}
