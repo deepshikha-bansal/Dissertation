@@ -1,20 +1,23 @@
 \chapter{Conclusions and Future Work}\label{Chapter6}
 \section{Conclusions}
-The main focus of the report was to explore the arithmetic of compute intensive algorithms, for efficient implementation on hardware. Two applications were studied thoroughly for the identification of the compute intensive kernels of the algorithms. For FHEW, 1024 point double precision FFT was identified as the computationally intense portion to be offloaded to hardware. It was analyzed that the modification from double precision to single precision floating point FFT is not supported by the library because of errors in computation of FFT.
+Two applications were studied thoroughly for the identification of the compute intensive kernels of the algorithms. 
+For FHE, 1024 point double precision FFT was identified as the computationally intense portion to be offloaded to hardware. 
+It was observed that the modification from double precision to single precision floating point FFT results in significant loss of accuracy and inaccurate implementation because of errors in computation of FFT.
+To proceed with, a bottom up analysis of FPGA based double precision floating point FFT was performed, starting from the implementation of a single butterfly unit. An implementation was achieved which is estimated to compute a 1024-Point FFT in 1.19ms, while consuming a significantly lesser resource utilization.
+%An implementation was achieved which uses only one double precision multiplier and one double precision adder-subtractor unit for the entire computation, consuming only 1\% FF's,4\% LUT's and 6\% DSP's on Zedboard ZC702. 
 
-To proceed with, a bottom up analysis of FFT was performed, starting from the implementation of a single butterfly unit, and a resource optimized 1024 point FFT was analyzed. An implementation was achieved which uses only one double precision multiplier and one double precision adder-subtractor unit for the entire computation, consuming only 1\% FF's,4\% LUT's and 6\% DSP's on Zedboard ZC702. 
+For CNN, convolution was identified as the compute intensive portion and the underlying arithmetic was modified from floating point to fixed point. It was observed that the same accuracy can be obtained if we change the arithmetic from single precision float to Fixed point Q-Combinations of (32,16) or(24-16).
+It saves almost 70\% resources as compared to floating point for Q(32-16) combination and further improvement of 8\% in resources can be obtained by using the Q(24-16) format. 
+%A speed up of 1.7 is estimated for Q(24.16) format. 
 
-For deep neural network, convolution was identified as the compute intensive portion, and the underlying arithmetic was modified from floating point to fixed point. It was identified that the same accuracy can be obtained if we change the input from float which require 32 bit resources,to Fixed point Q-Combinations of (32,16) or(24-16) which is estimated to save almost 70\%resources as compared to floating point for Q(32-16) combination and further improvement of 8\%resources by using the Q(24-16) format. A speed up of 1.7 is estimated for Q(24.16) format. 
 \section{Future Work}
 \begin{itemize}
-\item
-\textbf{Real Time Estimation:} The current implementation gives the performance enhancement of the application, for one iteration of the algorithm. However the estimates may be different, in terms of real time streaming of input. e.g. for FHEW library, the results are computed only for one iteration of HOMNAND, however real time circuits might need to execute multiple iterations of NAND, which may lead to more consumption of resources at run time. Bench marking for variable circuit depths is a future work and can be extended for this thesis.
-\item
-\textbf{FHEW Optimization:} It was found based on analysis that single precision float data type is not supported in FHEW, however another method to optimize FHEW is change the noise variable or modulo factor 'q', such that the FFT can be modified to NTT operation. 
-\item
-\textbf{Streaming:} This report analyses the kernels in an algorithm for offloading to the hardware, their implementation in hardware, and performance estimation based on resource utilization.  Since the entire analysis is to achieve a high degree of parallelism, a suitable interconnect architecture is needed for executing it. The effect of modification of arithmetic on streaming interfaces i.e. when the data is communicated from processor to programmable logic can be the verified as an extension to this work.
-\item
-\textbf{Accelerator Specific Optimization :} This report analyses one area of accelerator specific optimization i.e. the arithmetic. Other areas of optimization e.g. Integration of accelerators with memory can be explored as future work.
+%\item
+%\textbf{Real Time Estimation:} The current implementation gives the performance enhancement of the application, for one iteration of the algorithm. However the estimates may be different, in terms of real time streaming of input. e.g. for FHEW library, the results are computed only for one iteration of HOMNAND, however real time circuits might need to execute multiple iterations of NAND, which may lead to more consumption of resources at run time. Bench marking for variable circuit depths is a future work and can be extended for this thesis.
+\item \textbf{FHE Optimization:} It was oberved based on analysis that single precision float data type results in significant loss of accuracy, however another method to optimize FHE is by changing the noise variable or modulo factor 'q', such that the FFT can be modified to NTT operation. 
+%\item
+%\textbf{Streaming:} This report analyses the kernels in an algorithm for offloading to the hardware, their implementation in hardware, and performance estimation based on resource utilization.  Since the entire analysis is to achieve a high degree of parallelism, a suitable interconnect architecture is needed for executing it. The effect of modification of arithmetic on streaming interfaces i.e. when the data is communicated from processor to programmable logic can be the verified as an extension to this work.
+%\item \textbf{Accelerator Specific Optimization :} This report analyses one area of accelerator specific optimization i.e. the arithmetic. Other areas of optimization e.g. Integration of accelerators with memory can be explored as future work.
 
 \end{itemize}
 

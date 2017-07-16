@@ -1,4 +1,3 @@
-
 \lstset { %
 	language=C,
 	backgroundcolor=\color{lightgray}, % set backgroundcolor
@@ -11,18 +10,20 @@
 	breaklines=true	
 }
 \lstset{framesep=-10pt, xleftmargin=-10pt}
-\begin{lstlisting}[caption={Changes to Makefile},label={listing:6.1}]
-include ./sources.mk
-
-exec=lenet_app
+\begin{lstlisting}[caption={FHEW: Makefile},label={listing:3.8.1}]
+PREFIX=$(HOME)
 
 CC=g++
 
-CPPFLAGS=CPPFLAGS= -g $(shell pkg-config --cflags opencv)\
-          -I/usr/local/include/opencv2\
-           -I./fi -I ./
-           
-LIBS= $(shell pkg-config --libs opencv) -lpapi 
+AR=ar
+
+CFLAGS= -ansi -Wall -O3
+
+LDFLAGS= -L. -lfhew -lfftw3f -lfftw3
+
+INCLUDE=distrib.h LWE.h FHEW.h FFT.h params.h
+
 \end{lstlisting}
+
 
 

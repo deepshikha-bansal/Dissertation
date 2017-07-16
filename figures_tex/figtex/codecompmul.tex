@@ -10,10 +10,13 @@
 	breaklines=true	
 }
 \lstset{framesep=-10pt, xleftmargin=-10pt}
-\begin{lstlisting}[caption={FHEW:Complex Multiplication Sample},label{listing:1}]
-FFTforward(ai, res[i][0]);
+\begin{lstlisting}[caption={FHEW:Complex Multiplication Sample},label={listing:3.1}]
+     FFTforward(ai, res[i][0]);
+
      for (int k = 0; k < N2; ++k) 
         ai[k] = ((float complex) ai[k]) * ((float complex) sk_FFT[k]);
-        FFTbackward(res[i][1], ai);
+        
+    FFTbackward(res[i][1], ai);
+    
 \end{lstlisting}
 

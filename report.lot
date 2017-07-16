@@ -1,0 +1,13 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Synthesis Results Comparison for Butterfly Unit Execution for Resource Optimization for Zedboard ZC702\relax }}{27}{table.caption.17}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Minimum Utilization Estimates and Latency for intermediate FFT Implementations\relax }}{31}{table.caption.22}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Synthesis Results Comparison for Resource Optimized 1024 Point FFT for Performance Optimization for Zedboard ZC702\relax }}{31}{table.caption.23}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Effect on Accuracy by varying the Fixed Point Fractional Length (Word Length 32).\relax }}{45}{table.caption.26}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Effect on Accuracy by varying the Fixed Point Fractional Length (Word Length 16).\relax }}{45}{table.caption.27}
+\contentsline {table}{\numberline {4.3}{\ignorespaces Vivado HLS Fixed Point Rounding Modes\relax }}{47}{table.caption.29}
+\contentsline {table}{\numberline {4.4}{\ignorespaces Vivado HLS Fixed Point Overflow Modes\relax }}{48}{table.caption.30}
+\contentsline {table}{\numberline {4.5}{\ignorespaces Area Estimates Comparison for 2D Convolution Operation for Zedboard ZC702\relax }}{49}{table.caption.31}
+\addvspace {10\p@ }

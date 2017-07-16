@@ -18,6 +18,7 @@
 %           commentstyle=\color{green}\ttfamily,
 %          breaklines=true
 %          }
+
 \usepackage{calc}
 \usepackage{array}
 \usepackage{rotating}
@@ -41,6 +42,7 @@
 \usepackage{xcolor}
 \usepackage{adjustbox}
 \usepackage{dot2texi}
+\usepackage{fancyhdr}
 
 
 
@@ -201,7 +203,7 @@
 %}
 
 
-
+\usepackage{float}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{caption}
@@ -220,7 +222,7 @@
 %\usepackage{subfigure}
 %\usepackage{subcaption}
 \setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{2}
 %\setcounter{secnumdepth}{4}
 %\setcounter{tocdepth}{4}
 \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
@@ -245,7 +247,14 @@
   \setlength{\parsep}{0pt}
 }{\end{enumerate}}
 
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
 
+\fancyhead[RO,LE] {\thepage}
+\fancyhead[RE] {\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0pt}
 \begin{document}
 
 
@@ -298,17 +307,11 @@
 \end{table}
  
 \begin{abstract}
+	
+Homogeneous computing platforms, specifically multi-core CPUs spend most of the execution time on non-computational tasks (handling data movements, fetching and decoding instructions), with a lot of power spent on non-computational units. The strong need for increased computational performance has led to the use of heterogeneous computing platforms, with graphics processing units (GPUs) and massively parallel processor arrays(MPPAs) acting as co-processors for arithmetic intensive data-parallel workloads. However energy efficiency remains a major concern.
+For more than a decade, researchers have shown that FPGAs can accelerate a wide variety of compute-intensive applications in an energy-efficient manner, in some cases by several orders of magnitude compared to state of-the-art general purpose processors. This is due to highly customized hardware implementation designed specifically for the compute kernels which basically require extensive analysis (in terms of arithmetic complexity) and the performance demands of the application. For example, researchers have shown that implementation of convolutional layers of deep neural networks does not need to rely on expensive floating point hardware resources and can be handled using low precision fixed point hardware resources leading to more efficient execution in terms of area, latency and power. 
+However, changing the arithmetic of an application may have adverse affects on the accuracy because of the precision loss by changing the data types. This report aims to explore these trade-offs by analyzing two compute-intensive applications. The first one is Fully Homomorphic Encryption (FHE) and the second one is Convolution Neural Network (CNN) used for digit classification problem.
  
-Developments in high end computing has led to design and simulation of complex systems e.g. weather forecasts,cryptography, machine learning algorithms, etc. which demand a lot of computation effort,and hence processing power is a dominant requirement for such applications.Various heterogeneous computing platforms, with graphics processing units(GPUs),massively parallel processor arrays(MPPAs) and other accelerators acting as co-processors help in parallelising the application and hence improve the efficiency. FPGA's provide a reliable way of prototyping an application and measuring the performance prior to fabrication of ASIC. However mapping an application to any platform is limited by factors such as area required by the application which is defined mainly in terms of number of resources used,speed of performance which is mainly referred to as latency and computation power requirements. e.g. An application cannot be parallelized unless sufficient resources are provided on a given architecture to execute the amount of intended parallelism. The underlying arithmetic used directly affects the number of resources and processing power used by any algorithm on an architecture. However changing the arithmetic of any algorithm may have adverse affects on the performance in terms of reliability because of precision loss by changing the data types. \\
-In this report, two computationally intensive algorithms :Deep Neural network and Fully Homomorphic Encryption Algorithm are explored for the underlying arithmetic. \\
-In the first part,compute intensive modules in an existing open source implementation of FHEW algorithm are identified and the results of modifying the underlying arithmetic from double precision float to single precision float are analyzed.Then a resource optimized 1024-Point double Precision Fast Fourier Transform is analyzed using Vivado HLS,by scaling an implementation of smallest FFT compute unit, for efficient implementation of FHEW on hardware.
-
-In the second part, another compute intensive application Deep Neural Network is analyzed. An important step in design flow of computation intensive embedded system applications is conversion from float to fixed point representation. Although float offers more dynamic range, it is expensive to compute. However some applications can tolerate a certain level of inaccuracy with usage of simple float representation. An existing open source implementation that classifies MNIST Data set is used, and the library is modified to use fixed point representation instead of floating point representation of numbers. The effect on accuracy of the results is compared and analyzed for different fixed point formats. The compute intensive module is implemented in Vivado HLS, and the estimated improvement on latency and resource utilization with the usage of fixed point arithmetic is also studied. 
-
-
-
- 
-  
 \end{abstract}
 
 

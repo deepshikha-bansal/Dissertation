@@ -1,29 +1,30 @@
-\begin{table}[!h]
+\begin{table}[H]
 \centering
-\caption{Synthesis Results Comparison for Butterfly Unit Execution for Resource Optimization for Zedboard ZC702}
+\caption{Synthesis Results Comparison for Design Space Exploration for Butterfly Unit Execution for Resource Optimization for Zedboard ZC702}
 \label{Table 4.1}
-\begin{tabular}{||m{5.4cm}|m{4.2cm}|m{3cm}||}
+\begin{tabular}{||m{3cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}||}
 \hline
-Metric & No Optimization & Area Optimized  \\
+Metric & No Optimization & Resource Directive& Allocation Directive (3 Multipliers) & Allocation Directive (2 Multipliers) & Area Optimized  \\
 \hline
-\multicolumn{3}{||c||}{Timing Estimates}\\
+\multicolumn{6}{||c||}{Timing Estimates}\\
 \hline
-Latency(Cycles) & 18 & 21\\
+Latency(Cycles) & 18 &18&19&19& 21\\
 \hline
-\multicolumn{3}{||c||}{Area Estimates}\\\cline{1-3}
-Number of Instances of Multipliers & 4 & 1\\
+\multicolumn{6}{||c||}{Area Estimates}\\
 \hline
-Number of Instances of Subtractors & 2 & 0\\
+Number of Multipliers & 4 & 4&3&2& 1\\
 \hline
-Number of Instances of Adders & 1 & 0\\
+Number of Subtractors & 2 & 1&1&0&0\\
 \hline
-Number of Instances of Adder-Subtractor Unit & 1 & 1\\
+Number of Adders & 1 & 1&1&0&0\\
 \hline
-DSP48E (\%age Utilization) & 25 & 6\\
+Number of Add-Sub Units & 1 & 0&0&1&1\\
 \hline
-LUT's (\%age Utilization) &13 & 4\\
+DSP48E (\%age Utilization) & 25 & 22&17&11&6\\
 \hline
-Flip Flops (\%age Utilization) & 3 & 1\\
+LUT's (\%age Utilization) &13 & 8&8&4&4\\
+\hline
+Flip Flops (\%age Utilization) & 3 & 2&2&1&1\\
 \hline
 \end{tabular}
 

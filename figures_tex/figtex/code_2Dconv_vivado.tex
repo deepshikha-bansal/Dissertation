@@ -1,0 +1,65 @@
+
+\lstset { %
+	language=C,
+	backgroundcolor=\color{lightgray}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	basicstyle=\ttfamily\scriptsize,
+	%\basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	breaklines=true	
+}
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+\begin{lstlisting}[caption={2D Convolution for Fixed Point Variables},label={listing:5.6}]
+#include <ap_fixed.h>
+//define the fixed point and image parameters
+#define in_row 28
+#define in_col 28
+#define ker_row 5
+#define ker_col 5
+#define word_length 32
+#define frac_length 16
+
+//2D Convolution function takes three fixed point parameters for input image array of 28*28, kernel array of 5*5 and output array 24*24
+void customFilter2D_fixed (
+                          ap_fixed<word_length, frac_length> b[in_row][in_col],
+                          ap_fixed<word_length, frac_length> out[(in_row-ker_row+1)][(in_col-ker_col+1)],
+                          ap_fixed<word_length, frac_length> a[ker_row][ker_col]
+                          )
+{
+ //2D convolution operation
+	int r,c,i,j;
+	for(r = 0; r < in_row - ker_row + 1; r++){
+        for(c = 0; c < in_row- ker_col + 1; c++){
+            out[r][c] = 0;
+            for( i = 0; i < ker_row; i++){
+                for(j = 0; j < ker_col; j++){
+                    out[r][c]+=a[i][j]*b[r+i][c+j];
+                }
+            }
+        }
+	}
+}
+ 
+ int main()
+ {
+ //C stores the output image converted back to float
+ 	float c[(in_row-ker_row+1)][(in_col-ker_col+1)];
+//b is a fixed point array variable to store the input image 	
+	ap_fixed<word_length, frac_length> b[in_row][in_col];
+//a is the fixed point array variable to store the kernel	
+	ap_fixed<word_length, frac_length> a[ker_row][ker_col];
+
+// out is the fixed point array variable to store the output image after performing 2D convolution 
+	ap_fixed<word_length, frac_length> out[(in_row-ker_row+1)][(in_col-ker_col+1)];
+
+// The input image and kernel values are assigned to the corresponding variables assigned and the customfilter2D_fixed function is called 
+customFilter2D_fixed(b,out,a);
+	
+//The result can be converted back to float using
+c[i][j]=out[i][j].to_float();	
+	
+ }
+ 
+\end{lstlisting}

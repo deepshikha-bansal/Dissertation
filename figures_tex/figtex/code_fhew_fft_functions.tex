@@ -1,0 +1,35 @@
+\lstset { %
+	language=C,
+	backgroundcolor=\color{lightgray}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	basicstyle=\ttfamily\scriptsize,
+	%\basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	breaklines=true	
+}
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+\begin{lstlisting}[caption={FHEW: FFT Setup Function},label={listing:3.8.3}]
+//FFT Setup function
+void FFTsetup(){
+
+//Sets up data to compute single precision float FFT
+
+  in_float = (float*) fftwf_malloc(sizeof(float) * 2*N);
+  out_float = (fftwf_complex*) fftwf_malloc(sizeof(fftwf_complex) * (N + 2));
+  plan_fft_forw_float = fftwf_plan_dft_r2c_1d(2*N, in_float, out_float,  FFTW_PATIENT);
+  plan_fft_back_float = fftwf_plan_dft_c2r_1d(2*N, out_float, in_float,  FFTW_PATIENT);
+
+//Sets up data to compute single precision float FFT
+
+  in_double = (double*) fftw_malloc(sizeof(double) * 2*N);
+  out_double = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * (N + 2));
+  plan_fft_forw_double = fftw_plan_dft_r2c_1d(2*N, in_double, out_double,  FFTW_PATIENT);
+  plan_fft_back_double = fftw_plan_dft_c2r_1d(2*N, out_double, in_double,  FFTW_PATIENT);
+}
+
+\end{lstlisting}
+
+
+

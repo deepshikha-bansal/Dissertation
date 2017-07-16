@@ -1,4 +1,3 @@
-
 \lstset { %
 	language=C,
 	backgroundcolor=\color{lightgray}, % set backgroundcolor
@@ -11,18 +10,17 @@
 	breaklines=true	
 }
 \lstset{framesep=-10pt, xleftmargin=-10pt}
-\begin{lstlisting}[caption={Changes to Makefile},label={listing:6.1}]
-include ./sources.mk
+\begin{lstlisting}[caption={FHEW: FFT Forward Function},label={listing:3.8.4}]
+void FFTforward() {
 
-exec=lenet_app
+//Executes Forward FFT for Single Precision Float
+  fftwf_execute(plan_fft_forw_float); 
+ 
+//Executes Forward FFT for Double Precision Float
+  fftw_execute(plan_fft_forw_double); 
+}
 
-CC=g++
-
-CPPFLAGS=CPPFLAGS= -g $(shell pkg-config --cflags opencv)\
-          -I/usr/local/include/opencv2\
-           -I./fi -I ./
-           
-LIBS= $(shell pkg-config --libs opencv) -lpapi 
 \end{lstlisting}
+
 
 

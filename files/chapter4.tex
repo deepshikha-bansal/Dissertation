@@ -1,13 +1,13 @@
 \chapter{Analysis of Resource Optimized FFT}\label{Chapter4}
-From the analysis given in chapter \ref{Chapter3}, it was found that FFT is the most computationally intense algorithm of FHEW library, and optimization related to converting the FFT from double precision to single precision is not supported  because of the limitations as discussed in section \ref{3.10}. The idea is to implement the algorithm on hardware and to achieve better efficiency by paralleling the application by simultaneously running multiple FFT's in parallel. However, it is possible only if there are sufficient resources available on hardware to support it. The rationale behind this chapter is to analyze a double precision resource optimized 1024-point FFT such that the resources consumed are very less so that the achievable parallelism can be estimated.
+From the analysis given in chapter \ref{Chapter3}, it was found that FFT is the most computationally intense algorithm of FHEW library, and optimization related to converting the FFT from double precision to single precision is not supported  because of the limitations as discussed in section \ref{3.10}. The idea is to implement the algorithm on hardware and to achieve better efficiency by parallelising the application by simultaneously running multiple FFT's in parallel. However this is possible only if there are sufficient resources available on hardware to support it. The rationale behind this chapter is to analyze a double precision resource optimized 1024-point FFT such that the resources consumed are very less so that the achievable parallelism can be estimated.
 
 \noindent The tool used for the analysis is Vivado HLS. The technique used is the bottom-up analysis of the FFT i.e. implementing the smallest FFT computation unit and scaling it up to yield a 1024 point FFT such that the accuracy is not compromised and also the resources are optimized. 
 \section{A Brief about Vivado HLS}
-It is a high level synthesis tool which allows to create IP's from a C, C++, System C specification and it automatically generates RTL. It supports various data types integer,floating and double which is the primary requirement for writing the specification for FFT based on our requirement. It provides various optimization directives, which help in improving the performance of an algorithm by controlling the synthesis process. It provides generation of an IP core of an application, which in turn helps in accelerating the compute intensive parts of the application programmable logic part of the hardware e.g. FPGA's. It also supports choice of hardware so that the performance can be analyzed thoroughly in terms of area and Latency parameters for different implementations or on different hardware. 
+It is a high level synthesis tool which allows to create IP's from a C, C++, System C specification and it automatically generates RTL. It supports various data types integer, floating and double which is the primary requirement for writing the specification for FFT based on our requirement. It provides various optimization directives, which help in improving the performance of an algorithm by controlling the synthesis process. It provides generation of an IP core of an application, which in turn helps in accelerating the computationally intense parts of the application on programmable logic part of the hardware e.g. FPGA's. It also supports choice of hardware so that the performance can be analyzed thoroughly in terms of area and latency parameters for different implementations or on different hardware. 
 
-In this chapter, an analysis of resource optimized 1024 point double precision FFT is performed starting from a single butterfly structure i.e. Radix 2 FFT, as described in figure \ref{fig:butterfly}. A C specification is written supporting the implementation of butterfly structure and later it is scaled up to compute a 1024 point FFT, by limiting the resources by using various resource optimization directives provided by HLS, and the performance metric is studied.
+In this chapter, an analysis of resource optimized 1024 point double precision FFT is performed starting from a single butterfly structure i.e. Radix 2 FFT, as described in figure \ref{fig:butterfly}. A C specification is written supporting the implementation of butterfly structure which later is scaled up to compute a 1024 point FFT, by limiting the resources with the help of various resource optimization directives provided by HLS and performing design space exploration.
 
-\section{A brief about FFT Algorithm}
+\section{A Brief about FFT Algorithm}
 FFT is an algorithm which allows efficient computation of discrete fourier transform by limiting the number of computations used for computing the DFT.
 
 \vspace{0.25cm}
@@ -27,7 +27,7 @@ Given $W\textsubscript{N} =e^{-j(2\times \pi/N)}$, the above expression can be r
 
 \vspace{0.25cm}
 \noindent Referring equation 4.3, it can be seen that the expression requires N(N-1) complex additions and $N^{2}$ complex multiplications to compute a complex N point DFT.
-\noindent The fast fourier transform is derived from DFT by separating the even and odd indexes of the summation. It computes the DFT by using a reduced number of computations by exploring the symmetry of the term, $W\textsubscript{N}$ which is called the twiddle factor. The various properties of $W\textsubscript{N}$ are:
+\noindent The fast fourier transform is derived from DFT by separating the even and odd indexes of the summation. It computes the DFT by using a reduced number of computations by exploring the symmetry of the term $W\textsubscript{N}$ which is called the twiddle factor. The various properties of $W\textsubscript{N}$ are:
 \begin{itemize}
     \item 
     $W\textsubscript{N}^{N}=1$
@@ -37,9 +37,10 @@ Given $W\textsubscript{N} =e^{-j(2\times \pi/N)}$, the above expression can be r
         \item
   It is symmetric. i.e. $W\textsubscript{N}^{k+N/2}= -W\textsubscript{N}^{k}$
 \end{itemize}
-By exploring the symmetries given above, the number of computations are reduced in a way such that lesser number of twiddle factors are computed. 
+By exploring the symmetries given above, the number of computations are reduced in a way such that lesser number of twiddle factors is required to be computed. 
 
 \section {Analysis of Butterfly Structure}
+
 The basic computation structure in FFT is the butterfly structure which computes the two point FFT. The structure takes  two complex numbers a and b as input and produces two complex numbers A and B as output such that,
 
 \hspace{3cm} $A=a+W\textsubscript{N}\cdot b$
@@ -49,51 +50,56 @@ The basic computation structure in FFT is the butterfly structure which computes
 \noindent as shown in figure \ref{fig:butterfly}.
 %figure
 \input{figures_tex/figtex/butterfly.tex}
-\noindent The C function for the implementation of the butterfly structure is as defined in listing \ref{listing:2}
+
+\noindent The C function for the implementation of the butterfly structure is defined in listing \ref{listing:2}.
 \input{figures_tex/figtex/codebutterfly.tex}
 
-The C implementation is verified for functionality by testing with a C test bench, and synthesized for ZC7020 zedboard. The synthesis report was studied and it was found that the computation takes 18 cycles to finish the execution. The utilization aspects specified that it uses 4 instances of double precision multiplier, 2 instances of double precision subtractor unit, one instance each of double precision adder and double precision adder-subtractor unit which counts for about 25 percent DSP units utilization for only one butterfly unit. 
+The C implementation is verified for functionality by testing with a C test bench, and synthesized for ZC7020 zedboard. The synthesis report was studied and it was found that the computation takes 18 cycles to finish the execution. The utilization aspects specified that it uses 4 instances of double precision multiplier, 2 instances of double precision subtractor unit, one instance each of double precision adder and double precision adder-subtractor unit which counts for about 25 percent DSP units utilization for only one butterfly unit computation. 
 \subsection{Area Optimization}\label{4.3.1}
-On thorough analysis of the butterfly unit it can be seen that the four multiplications can be performed by using only one double precision multiplier and addition and subtraction can be performed by the same adder-subtractor unit, if a few cycles of computation are compromised. The system was optimized by applying the directives to bind the resources to various operators. The following optimizations were applied to the code:
+On thorough analysis of the butterfly unit it can be seen that the four multiplications can be performed by using only one double precision multiplier and addition and subtraction can be performed by the same adder-subtractor unit, if a few cycles of latency are compromised. The system is optimized by applying the directives to bind the resources to various operators. The following optimizations are applied to the code:
 \begin{itemize}
 \item
 \textbf{ALLOCATION:} The allocation directive is used to specify the limit on the DSP cores to be used in the algorithm to implement resource sharing at the expense of latency. It can be specified as:
 
 \# pragma HLS ALLOCATION instances=dmul limit=1 operation
 
-\noindent This limits the number of double Precision multipliers to 1.
+\noindent This limits the number of double precision multipliers to 1.
 \item
-\textbf{RESOURCE:} The resource directive is used to specify that the computation of a specific variable will be implemented by which DSP core. It can be implemented as:
+\textbf{RESOURCE:} The resource directive is used to specify that the computation of a specific variable will be executed by which DSP core. It can be implemented as:
 
 \# pragma HLS RESOURCE variable=temp core=dAddSub\_fulldsp
 
 \noindent This specifies that the temp variables operation should be computed by double precision adder-subtractor unit.
 
-\noindent It should be noted the RESOURCE directive works only for the first assignment of a variable. If a variable is reassigned multiple times in a specification, the directive will work only for the first assignment. Different temporary variables should be defined to optimize the further reassignments of a variable.
+\noindent It should be noted the RESOURCE directive works only for the first assignment of a variable. If a variable is reassigned multiple times in a specification, the directive will work only for the first assignment. Different temporary variables should be defined to optimize further the reassignments of a variable.
 
-In the above implementation the butterfly, the computation of X\_R[0], X\_I[0],X\_R[1] and X\_I[1] are mapped to be computed by adder-subtractor unit.
+In the above implementation of butterfly unit, the computation of X\_R[0], X\_I[0], X\_R[1] and X\_I[1] are mapped to be computed by adder-subtractor unit.
 \item
 \textbf{CONFIG BIND:} It is a GUI directive. It helps to minimize the number of operations used. It can be specified from Vivado GUI, by navigating through solution settings as specified below:
 
 Solution-\textgreater Solution\_Settings-\textgreater Add-\textgreater config\_bind.
 
+Figure \ref{fig:configbind} demonstrates the usage of config bind directive.
+
 \input{figures_tex/figtex/configbind.tex}
-The config bind is used to minimize the operations for double precision subtractor.
+
+The config bind directive is used to minimize the operations for double precision subtractor in the above FFT butterfly unit implementation.
 \end{itemize}
 \subsection{Comparison of Results}
-The implementation of butterfly unit, was executed with the application of different optimization directives as given in section \ref{4.3.1}. The trade-off between the computation time and the resource utilization can be easily observed from the Area Vs. Latency curve as given in figure \ref{plot_butterfly}.
+The implementation of butterfly unit, was executed with the application of different optimization directives as given in section \ref{4.3.1}. The trade-off between the computation time and the resource utilization can be easily observed from the area vs. latency curve as given in figure \ref{plot_butterfly}.
+
 \input{figures_tex/figtex/plot_butterfly.tex}
 
-From the graph, it can be seen that the latency value of 21 yields the minimum area. This value corresponds to the optimization, which limits the resources to one double precision adder subtractor unit and one double precision multiplier unit. 
+From the graph, it can be seen that the latency value of 21 yields the minimum area. This value corresponds to the optimization, which limits the resources to one double precision adder subtractor unit and one double precision multiplier unit as given in table \ref{Table 4.1}. 
 
-The results after the application of area optimization directives were compared against the results of the implementation with no optimization. The comparison is given in table \ref{Table 4.1}.
+The results of design space exploration with the application of area optimization directives were compared against the results of the implementation with no optimization. The comparison is also given in table \ref{Table 4.1}.
 \input{figures_tex/figtex/syn1024.tex}
 
-From table \ref{Table 4.1}, it can be seen that the resources are reduced by a significant factor i.e. the implementation is limited to use one double precision multiplier and only one double precision adder-subtractor unit which is the minimum requirement for performing the calculations, however 3 cycles of latency are compromised. 
+From table \ref{Table 4.1}, it can be seen that the resources are reduced by a significant factor i.e. the implementation is limited to use only one double precision multiplier and only one double precision adder-subtractor unit which is the minimum requirement for performing the calculations. However 3 cycles of latency are compromised. 
 
-The resource utilization could be even lesser, if floating point data types are used,e.g. the double precision multiplier uses 1149 LUT's to implement an adder unit, whereas the single precision floating point uses 390 LUT's to implement an adder unit.
+The resource utilization could be even lesser, if floating point data types are used e.g. the double precision multiplier uses 1149 LUT's to implement an adder unit, whereas the single precision floating point uses 390 LUT's to implement an adder unit.
 
-\section {Analysis of 1024-Point FFT}
+\section {Analysis of 1024-Point FFT}\label {4.4}
 The above implementation of butterfly unit is scaled up to compute a 1024 point FFT. The twiddle factors for computing the FFT are pre computed and supplied as array variables which are stored in BRAM to save the processing power at runtime. At a time two input samples are packed and sent to call the butterfly module which is already optimized by limiting the number of resources. Computation of N point FFT requires log\textsubscript{2}N stages, each computing N/2 butterfly operations.
 
 The performance is further enhanced by exploring other pragmas available in Vivado HLS. e.g.
@@ -110,9 +116,6 @@ PIPELINE: This is used to use all resources concurrently in the algorithm. It is
 
 \hspace{3cm}\# pragma HLS PIPELINE
 
-The butterfly code was executed with the application of different optimization pragmas as given in section 
-at the beginning of the loop body.
-
 \item
 UNROLL: This is used to create multiple independent iterations of a loop simultaneously at the expense of resources. It is implemented by placing
 
@@ -122,43 +125,55 @@ at the beginning of the loop body.
 It should be noted the unroll factor must be provided otherwise the loop fails to unroll.
 \end{itemize}
 
-The performance analysis of the results of intermediate experiments of scaling the butterfly unit implementation to 1024 point FFT, which involves scaling the butterfly unit to first implement a 4-Point FFT and then further scaling up to 16 Point FFT and so on, is given as the Area Vs. Latency Curves as given in figure \ref {plot_4fft} to figure \ref{plot_1024fft}.
+\noindent The design space exploration was performed for the FFT code with the application of different optimization pragmas as given in section \ref{4.4} and \ref{4.3.1}.
+
+\noindent The performance analysis of the results of intermediate experiments of scaling the butterfly unit implementation to 1024 point FFT, which involves scaling the butterfly unit to first implement a 4-point FFT and then further scaling up to 16-point FFT and so on, is given as the area vs. latency curves as given in figure \ref {plot_4fft} to figure \ref{plot_128fft}.
+
+The details of the design space exploration for the intermediate experiments is given in detail in tables \ref{4-point} to \ref{128-point}.
+
 
 \input{figures_tex/figtex/plot_4fft.tex}
+\input{figures_tex/figtex/table_4_point.tex}
+
 
 \input{figures_tex/figtex/plot_16fft.tex}
+\input{figures_tex/figtex/table_16_point.tex}
 
 \input{figures_tex/figtex/plot_128fft.tex}
+\input{figures_tex/figtex/table_128_point.tex}
 
-\input{figures_tex/figtex/plot_1024fft.tex}
 
-Table \ref{min_area} gives the minimum utilization estimates for the intermediate FFT implementations, which are determined after studying the graphs in figures \ref {plot_4fft} to figure \ref{plot_1024fft}.
 
-\input{figures_tex/figtex/minarea.tex}
 
-The utilization estimates by scaling the resource optimized butterfly for computing 1024 Point FFT are given in detail in table \ref{Table 4.2}
+
+\noindent The utilization estimates by scaling the resource optimized butterfly for computing 1024 Point FFT are given in detail in table \ref{Table 4.3}.
 
 \input{figures_tex/figtex/resopt.tex}
 
-It should be noted that for computation of 1024 Point FFT:
+The corresponding area vs. latency curve is given as:  \input{figures_tex/figtex/plot_1024fft.tex}
+
+\noindent It should be noted that for computation of 1024 Point FFT:
 \begin{itemize}
 \item
 The loops for execution of successive butterfly units are pipelined but it results in increase in the minimum clock period. 
 \item
-The loops used to compute FFT are unrolled by a factor of 8 which in turn ends up using almost 90 percent resources on Z702 zedboard as per the analysis in Vivado HLS.However only a few cycles of latency are saved. If more resources can be supplied, by changing hardware, more unroll options can be explored. 
+The loops used to compute FFT are unrolled by a factor of 8 which in turn ends up using almost 90 percent resources on Z702 zedboard as per the analysis in Vivado HLS. However only a few cycles of latency are saved. If more resources can be supplied, by changing hardware, more unroll options can be explored. 
 \end{itemize}
 
 
-All the implementations given in table \ref{Table 4.2} use only one double precision multiplier and only one double precision adder-subtractor unit. Additions and subtractions are performed by the same adder-subtractor unit. 
+All the above implementations use only one double precision multiplier and only one double precision adder-subtractor unit. Additions and subtractions are performed by the same adder-subtractor unit. 
 From table \ref{Table 4.2}, if the time to compute 1024 Point FFT is computed it can be seen that it takes minimum as 1.19ms sec by the area optimized FFT. The unroll by a factor of 8 consumes almost 97 percent of LUT's for Zedboard(ZC702). To explore further parallelism we might need to use other hardware which supplies more number of resources. 
 
-\section{Performance Analysis by changing the Underlying Hardware}
-The given area optimization's are applied to various hardware FPGA's for the same algorithm and the results were compared in terms of resource consumption, latency and time taken to compute the 1024 point FFT. The comparison is as described in table \ref{Table 4.3}.
-\input{figures_tex/figtex/table_hw.tex}
+%\section{Performance Analysis by changing the Underlying Hardware}
+%The given area optimization's are applied to Virtex VC709 board for the same algorithm and the results were compared in terms of resource consumption, latency and time taken to compute the 1024 point FFT. The comparison is as described in table \ref{Table 4.3}.
 
-The choice of platform depends on a lot of factors e.g. cost, area, performance requirements, e.g. If a latency optimized designed is required, parallelism should be exploited at the expense of resources, as the total number of resources are more. 
+%The choice of platform depends on a lot of factors e.g. cost, area, performance requirements, e.g. If a latency optimized designed is required, parallelism should be exploited at the expense of resources, as the total number of resources are more. 
 
-For efficient implementation of FHEW on hardware, the area optimized FFT algorithm can be used as a packaged core and can be used to provide executions of several FFT's running in parallel to increase the speed of algorithm. The implementation of FHEW is not in the scope of this dissertation. In the next chapter another computationally intensive algorithm, deep neural network is explored for modification in arithmetic from floating point to fixed point.
+For efficient implementation of FHEW on hardware, the area optimized FFT algorithm can be used as a packaged core and can be used to provide executions of several FFT's running in parallel to increase the speed of algorithm. 
+
+%\input{figures_tex/figtex/table_hw.tex}
+
+In the next chapter another computationally intensive algorithm, deep neural network is explored for modification in arithmetic from floating point to fixed point.
 
 
 

@@ -1,4 +1,3 @@
-
 \lstset { %
 	language=C,
 	backgroundcolor=\color{lightgray}, % set backgroundcolor
@@ -11,18 +10,12 @@
 	breaklines=true	
 }
 \lstset{framesep=-10pt, xleftmargin=-10pt}
-\begin{lstlisting}[caption={Changes to Makefile},label={listing:6.1}]
-include ./sources.mk
+\begin{lstlisting}[caption={FHEW Parameters},label={listing:3.8.6}]
 
-exec=lenet_app
+\\This datatype is used to store Test MSB, Bootstrapping and Switching key Variables.
+typedef fftwf_complex Ring_FFT[N2];
 
-CC=g++
-
-CPPFLAGS=CPPFLAGS= -g $(shell pkg-config --cflags opencv)\
-          -I/usr/local/include/opencv2\
-           -I./fi -I ./
-           
-LIBS= $(shell pkg-config --libs opencv) -lpapi 
 \end{lstlisting}
+
 
 

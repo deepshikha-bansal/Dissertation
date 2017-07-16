@@ -1,0 +1,30 @@
+\lstset { %
+	language=C,
+	backgroundcolor=\color{lightgray}, % set backgroundcolor
+	%basicstyle=\footnotesize,% basic font setting
+	basicstyle=\ttfamily\scriptsize,
+	%\basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{darkgray}\ttfamily,
+	breaklines=true	
+}
+\lstset{framesep=-10pt, xleftmargin=-10pt}
+\begin{lstlisting}[caption={FHEW: FFT datatypes},label={listing:3.8.2}]
+#include <fftw3.h>
+
+// Parameters for FFT Computation in Single Precision Float
+
+float *in_float;
+fftwf_complex *out_float;
+fftwf_plan plan_fft_forw_float, plan_fft_back_float;
+
+// Parameters for FFT Computation in Double Precision Float
+
+double *in_double;
+fftw_complex *out_double;
+fftw_plan plan_fft_forw_double, plan_fft_back_double;
+\end{lstlisting}
+
+
+

@@ -1,0 +1,23 @@
+\begin{table}[H]
+\centering
+\caption{Design Space Exploration Results for 16-Point FFT Computation for Zedboard ZC702}
+\label{16-point}
+\begin{tabular}{||m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.6cm}|m{1.6cm}|m{1.6cm}|m{1.4cm}|m{1.4cm}|m{1.4cm}||}
+\hline
+Metric & No Optimization & Resource & Allocation (3 Multipliers) & Allocation (2 Multipliers) & Allocation (1 multiplier) & Loop-1 Unroll (factor 2) & Loop 1-Unroll (factor 4) & Loop 1,2 Unroll (factor 2-2) \\
+\hline
+\multicolumn{9}{||c||}{Timing Estimates}\\
+\hline
+Latency (Cycles) & 713 &713 &745 &745 & 809 & 804 & 801 & 791\\
+\hline
+\multicolumn{9}{||c||}{Area Estimates}\\
+\hline
+DSP48E  & 57 & 51 &37 & 26 &  15 & 18 & 22 & 18\\
+\hline
+LUT's  &7769 & 5213 & 3683 & 3169 & 2847 & 3490 & 4597 & 5146\\
+%\hline
+%FF's & 4199 & 3437 & 2612 & 2295 &  1916 & 2187 & 2622 & 2940\\
+\hline
+\end{tabular}
+
+\end{table}
